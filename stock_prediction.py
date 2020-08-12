@@ -7,8 +7,8 @@ import numpy as np
 HistoryPoints = 50
 
 def fetchAndSaveCsvData(ticker):
-    credentials = json.load(open('credentials.json','r'))
-    apiKey = credentials['avApiKey']
+    secrets = json.load(open('secrets.json','r'))
+    apiKey = secrets['avApiKey']
 
     timeSeries = TimeSeries(key=apiKey, output_format='pandas')
     data, _, = timeSeries.get_daily(ticker, outputsize='full')
