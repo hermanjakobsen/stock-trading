@@ -3,6 +3,8 @@ import json
 import pandas as pd
 from sklearn import preprocessing
 import numpy as np
+import torch
+from torch.utils.data import DataLoader, TensorDataset
 
 HistoryPoints = 50
 
@@ -83,3 +85,10 @@ def getTrainAndTestData(csvPath, trainSplitPercentage):
 
     return xTrain, yTrain, xTest, yTest, yTestUnscaled
 
+
+def convertToDataLoader(x, y, batchSize, shuffle, dropLast):
+    xTensor = torch.Tensor(x)
+    yTensor = torch.Tensor(y)
+
+    dataset = TensorDataset(xTensor, yTensor)
+    return DataLoader(dataset, batch_size=batchSize, shuffle=shuffle, drop_last=dropLast)
